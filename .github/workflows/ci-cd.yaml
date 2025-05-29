@@ -25,13 +25,14 @@ jobs:
         with:
           credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
-      - name: Configure Docker to use Google Container Registry
-        run: gcloud auth configure-docker gcr.io
+      - name: Configure Docker for Artifact Registry
+        run: gcloud auth configure-docker us-docker.pkg.dev
 
       - name: Build and push api-users Docker image
         run: |
-          docker build -t gcr.io/$GCP_PROJECT_ID/api-users:$GITHUB_SHA .
-          docker push gcr.io/$GCP_PROJECT_ID/api-users:$GITHUB_SHA
+          docker build -t asia-southeast1-docker.pkg.dev/imperial-terra-461008-s5/gcr/api-users:$GITHUB_SHA .
+          docker push asia-southeast1-docker.pkg.dev/imperial-terra-461008-s5/gcr/api-users:$GITHUB_SHA
+
 
   deploy:
     runs-on: ubuntu-latest
