@@ -58,5 +58,5 @@ jobs:
 
       - name: Deploy api-users to GKE
         run: |
-          kubectl set image deployment/api-users api-users=gcr.io/$GCP_PROJECT_ID/api-users:$GITHUB_SHA
+          kubectl set image deployment/api-users api-users=asia-southeast1-docker.pkg.dev/$GCP_PROJECT_ID/gcr/api-users:$GITHUB_SHA
           kubectl rollout status deployment/api-users
