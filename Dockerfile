@@ -1,28 +1,26 @@
 # Use official Node.js LTS version as base image
 FROM node:18-alpine
 
-# Create app directory
+# Set working directory inside the container
 WORKDIR /usr/src/app
 
-# Install dependencies (including PostgreSQL client from package.json)
+# Copy package.json and package-lock.json (if exists)
 COPY package*.json ./
-RUN npm install --production
 
-# Copy source code
+# Install all dependencies (including devDependencies)
+RUN npm install
+
+# Copy all source files to working directory
 COPY . .
 
-# Build the NestJS app (compile TS to JS)
+# Build the NestJS app (compile TypeScript to JavaScript)
 RUN npm run build
 
-# Expose port (default NestJS port)
-EXPOSE 3000
+# Remove devDependencies to slim down the image
+RUN npm prune --production
 
-# Set environment variables (optional defaults, override on run/deploy)
-ENV DB_HOST=localhost
-ENV DB_PORT=5432
-ENV DB_USER=aaa
-ENV DB_PASS=aaa
-ENV DB_NAME=aaa
+# Expose the port your app runs on
+EXPOSE 3000
 
 # Start the app
 CMD ["node", "dist/main.js"]
