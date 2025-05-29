@@ -22,7 +22,7 @@ jobs:
 
       # Log in to Google Cloud (using GitHub secret GCP_CREDENTIALS)
       - name: Set up Google Cloud credentials
-        uses: google-github-actions/auth@v0
+        uses: google-github-actions/auth@v1
         with:
           credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
@@ -49,7 +49,7 @@ jobs:
 
       # Set up Google Cloud credentials
       - name: Set up Google Cloud credentials
-        uses: google-github-actions/auth@v0
+        uses: google-github-actions/auth@v1
         with:
           credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
