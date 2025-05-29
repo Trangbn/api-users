@@ -30,7 +30,7 @@ jobs:
 
       - name: Build and push api-users Docker image
         run: |
-          docker build -t gcr.io/$GCP_PROJECT_ID/api-users:$GITHUB_SHA ./api-users
+          docker build -t gcr.io/$GCP_PROJECT_ID/api-users:$GITHUB_SHA .
           docker push gcr.io/$GCP_PROJECT_ID/api-users:$GITHUB_SHA
 
   deploy:
