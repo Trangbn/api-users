@@ -51,10 +51,12 @@ jobs:
         with:
           credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
-      - name: Set up kubectl
-        run: |
-          gcloud container clusters get-credentials $GKE_CLUSTER_NAME --region $GKE_REGION
-          kubectl config set-context --current --namespace=default
+      - name: Get GKE credentials
+        uses: google-github-actions/get-gke-credentials@v1
+        with:
+          cluster_name: ${{ env.GKE_CLUSTER_NAME }}
+          location: ${{ env.GKE_REGION }}
+          project_id: ${{ env.GCP_PROJECT_ID }}
 
       - name: Deploy api-users to GKE
         run: |
