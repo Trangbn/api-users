@@ -1,26 +1,35 @@
-# Use official Node.js LTS version as base image
-FROM node:18-alpine
+# Stage 1: Build
+FROM node:18-alpine AS builder
 
-# Set working directory inside the container
 WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json (if exists)
+# Install all dependencies (including dev)
 COPY package*.json ./
-
-# Install all dependencies (including devDependencies)
 RUN npm install
 
-# Copy all source files to working directory
+# Copy source files
 COPY . .
 
-# Build the NestJS app (compile TypeScript to JavaScript)
+# Build the app
 RUN npm run build
 
-# Remove devDependencies to slim down the image
-RUN npm prune --production
+# Stage 2: Production image
+FROM node:18-alpine
 
-# Expose the port your app runs on
+WORKDIR /usr/src/app
+
+# Copy only production dependencies
+COPY package*.json ./
+RUN npm install --only=production
+
+# Copy built files from the builder stage
+COPY --from=builder /usr/src/app/dist ./dist
+
+# Copy any other files your app needs (e.g., .env, public folder)
+# COPY --from=builder /usr/src/app/public ./public
+
+# Expose the port
 EXPOSE 3000
 
-# Start the app
+# Run the app
 CMD ["node", "dist/main.js"]
