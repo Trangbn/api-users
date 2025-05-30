@@ -19,14 +19,6 @@ spec:
           image: asia-southeast1-docker.pkg.dev/imperial-terra-461008-s5/gcr/api-users:latest
           ports:
             - containerPort: 3000
-          readinessProbe:
-            httpGet:
-              path: /healthz
-              port: 3000
-            initialDelaySeconds: 10
-            periodSeconds: 5
-            timeoutSeconds: 2
-            failureThreshold: 3
           env:
             - name: PORT
               value: "3000"
