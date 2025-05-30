@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: api-users
-          image: asia-southeast1-docker.pkg.dev/imperial-terra-461008-s5/gcr/api-users:latest
+          image: asia-southeast1-docker.pkg.dev/imperial-terra-461008-s5/gcr/api-users
           ports:
             - containerPort: 3000
           env:
