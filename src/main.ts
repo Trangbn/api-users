@@ -15,10 +15,6 @@ async function bootstrap() {
   app.useGlobalInterceptors(new ResponseTransformInterceptor())
   app.useGlobalPipes(new ValidationPipe(ValidationConfig))
 
-  app.getHttpAdapter().get('/', (req, res) => {
-    res.status(200).send({ status: 'ok' });
-  });
-
   app.setGlobalPrefix(configService.get<string>('apiPrefix'))
 
   useContainer(app.select(ValidatorModule), { fallbackOnErrors: true })
