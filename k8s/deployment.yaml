@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-users
+  labels:
+    app: api-users
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: api-users
+  template:
+    metadata:
+      labels:
+        app: api-users
+    spec:
+      containers:
+        - name: api-users
+          image: asia-southeast1-docker.pkg.dev/imperial-terra-461008-s5/gcr/api-users:latest
+          ports:
+            - containerPort: 3000
