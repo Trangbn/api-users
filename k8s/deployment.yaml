@@ -29,10 +29,7 @@ spec:
             - name: DATABASE_PORT
               value: "5432"
             - name: DATABASE_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: db-credentials   # Kubernetes secret name (create this secret)
-                  key: username
+              value: "postgres"
             - name: DATABASE_PASSWORD
               valueFrom:
                 secretKeyRef:
